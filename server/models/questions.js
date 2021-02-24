@@ -25,6 +25,10 @@ const questionsSchema = new mongoose.Schema({
             }
         }
     ],
+    score : {
+        type : Number,
+        default : 0
+    },
     userId : {
         type : mongoose.Types.ObjectId
     }
