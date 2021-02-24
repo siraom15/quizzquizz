@@ -14,10 +14,15 @@ const questionsSchema = new mongoose.Schema({
     },
     choices : [
         {
-            index : true,
-            type : String,
-            isAnswer : Boolean,
-            required : true,
+            body: {
+                type : String,
+                required : true
+            },
+            isAnswer : {
+                type : Boolean,
+                required : true,
+                default : false
+            }
         }
     ],
     userId : {
@@ -25,6 +30,5 @@ const questionsSchema = new mongoose.Schema({
     }
 
 }); 
-mongoose.model("Questions",questionsSchema)
 
-mongoose.model("Question", questionsSchema);
+mongoose.model("Questions",questionsSchema);
