@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 //connect db
 console.log(MONGOURI);
 mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(()=>{
+    .then(() => {
         console.log("Connected");
     })
     .catch((error) => {
@@ -24,7 +24,6 @@ require('./models/questions')
 
 // router
 var questionRouter = require('./routes/questions')
-var apiRouter = require('./routes/api');
 var userRouter = require('./routes/user')
 
 
@@ -36,7 +35,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', apiRouter);
 app.use('/api/questions', questionRouter);
 app.use('/api/user', userRouter);
 
