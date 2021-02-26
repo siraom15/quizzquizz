@@ -31,6 +31,9 @@ const questionsSchema = new mongoose.Schema({
     },
     userId : {
         type : mongoose.Types.ObjectId
+    },
+    category : {
+        type : String
     }
 
 }); 
