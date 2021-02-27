@@ -27,7 +27,6 @@ const addQuestion = (req, res, next) => {
         });
     }
 }
-
 const getAllQuestion = (req, res, next) => {
     Questions.find().then((questions) => {
         res.status(200).json({ questions: questions })
@@ -35,8 +34,18 @@ const getAllQuestion = (req, res, next) => {
         res.status(404).json({ "error": err })
     })
 }
+const deleteQuestion = (req, res, next) => {
+    const { _id = req._id } = req.body;
+    Questions.findOneAndDelete({ _id: _id, userId : req.user_data._id }).then(
+        res.status(200).json({
+            "success" : "Delete successfully"
+        })
+    ).catch(err => console.log(err))
+}
+
 
 module.exports = {
     addQuestion,
-    getAllQuestion
+    getAllQuestion,
+    deleteQuestion
 }
