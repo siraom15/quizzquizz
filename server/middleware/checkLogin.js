@@ -10,7 +10,6 @@ module.exports = (req, res, next) => {
             let data = jwt.verify(token, JWTSECRET);
             User.findOne({ _id: data._id }).then((user_data) => {
                 req.user_data = user_data;
-                req._id = user_data._id;
                 next();
             }).catch(err =>
                 console.log(err));
