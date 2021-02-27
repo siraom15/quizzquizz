@@ -1,20 +1,18 @@
 const mongoose = require('mongoose');
 const User = mongoose.model("User")
 
-const { JWTSECRET } = require('../keys');
-
 // 
+const jwt = require("jsonwebtoken");
+const { JWTSECRET } = require('../keys');
 const bcrypt = require('bcrypt');
 const saltRounds = 2;
-// 
 
 const indexUserPage = (req, res, next) => {
     res.send("User page");
     res.end();
 }
-
 const getUserData = (req, res, next) => {
-    const { _id } = req._id;
+    const _id = req.user_data._id;
     if (_id) {
         User.find({ _id: _id })
             .then(data => {
@@ -30,7 +28,6 @@ const getUserData = (req, res, next) => {
     }
 
 }
-
 const addUser = (req, res, next) => {
     const {
         username, email, password
@@ -76,7 +73,6 @@ const addUser = (req, res, next) => {
         })
     }
 }
-
 const checkUser = (req, res, next) => {
     const {
         email, password
@@ -115,11 +111,39 @@ const checkUser = (req, res, next) => {
         })
     }
 }
-
+const addScore = (req, res, next) => {
+    const { score } = req.body;
+    const update = { score : req.user_data.score + score }
+    User.findOneAndUpdate({ _id: req.user_data._id }, update).then(
+        res.status(200).json({
+            "success" : "updated"
+        })
+    ).catch(err => console.log(err))
+}
+const decreaseScore = (req, res, next) => {
+    const { score } = req.body;
+    const update = { score : req.user_data.score - score }
+    User.findOneAndUpdate({ _id: req.user_data._id }, update).then(
+        res.status(200).json({
+            "success" : "updated"
+        })
+    ).catch(err => console.log(err))
+}
+const resetScore = (req, res, next) => {
+    const update = { score : 0 }
+    User.findOneAndUpdate({ _id: req.user_data._id }, update).then(
+        res.status(200).json({
+            "success" : "updated"
+        })
+    ).catch(err => console.log(err))
+}
 
 module.exports = {
     getUserData,
     indexUserPage,
     addUser,
-    checkUser
+    checkUser,
+    addScore,
+    decreaseScore,
+    resetScore
 }
