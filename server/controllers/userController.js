@@ -113,28 +113,40 @@ const checkUser = (req, res, next) => {
 }
 const addScore = (req, res, next) => {
     const { score } = req.body;
-    const update = { score : req.user_data.score + score }
+    const update = { $inc: { score: score } }
     User.findOneAndUpdate({ _id: req.user_data._id }, update).then(
-        res.status(200).json({
-            "success" : "updated"
-        })
+        data => {
+            data.password = undefined;
+            res.status(200).json({
+                "success": "updated",
+                "user_data": data
+            })
+        }
     ).catch(err => console.log(err))
 }
 const decreaseScore = (req, res, next) => {
     const { score } = req.body;
-    const update = { score : req.user_data.score - score }
+    const update = { $inc: { score: -score } }
     User.findOneAndUpdate({ _id: req.user_data._id }, update).then(
-        res.status(200).json({
-            "success" : "updated"
-        })
+        data => {
+            data.password = undefined;
+            res.status(200).json({
+                "success": "updated",
+                "userdata": data
+            })
+        }
     ).catch(err => console.log(err))
 }
 const resetScore = (req, res, next) => {
-    const update = { score : 0 }
+    const update = { score: 0 }
     User.findOneAndUpdate({ _id: req.user_data._id }, update).then(
-        res.status(200).json({
-            "success" : "updated"
-        })
+        data => {
+            data.password = undefined;
+            res.status(200).json({
+                "success": "updated",
+                "userdata": data
+            })
+        }
     ).catch(err => console.log(err))
 }
 
