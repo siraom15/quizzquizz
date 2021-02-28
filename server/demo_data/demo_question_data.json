@@ -1,0 +1,20 @@
+{
+    "questionTitle" : "What color of Orange",
+    "questionDescribe" : "Only 1 answer",
+    "choices" : [
+        {
+            "body" : "Orange",
+            "isAnswer" : true
+        },
+        {
+            "body" : "Blue",
+            "isAnswer" : false
+        },
+        {
+            "body" : "Orange",
+            "isAnswer" : true
+        }
+    ],
+    "score" : 100,
+    "category" : "general"
+}
