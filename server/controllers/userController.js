@@ -32,7 +32,6 @@ const addUser = (req, res, next) => {
     const {
         username, email, password
     } = req.body;
-    console.log(req.body);
     if (username && email && password) {
         User.find({
             "$or": [{
@@ -84,11 +83,9 @@ const checkUser = (req, res, next) => {
                     bcrypt.compare(password, user.password, function (err, result) {
                         if (err) console.log(err);
                         if (result) {
-                            console.log(JWTSECRET);
                             let token = jwt.sign({
                                 _id: user._id
-                            }, JWTSECRET, { expiresIn: '2y' });
-                            console.log(token);
+                            }, JWTSECRET, { expiresIn: '1d' });
                             res.status(200).json({
                                 "success": "signin success",
                                 "token": token
